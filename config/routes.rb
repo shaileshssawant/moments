@@ -1,4 +1,19 @@
 Moments::Application.routes.draw do
+
+	match 'login' => 'sessions#new', :as => :login
+ match 'logout' => 'sessions#destroy', :as => :logout
+ match 'signup' => 'users#new', :as => :signup
+match 'activate/:activation_code' => 'users#activate', :as => :activate, :activation_code => nil
+
+resources :users do
+  member do
+    put :suspend
+    put :unsuspend
+    delete :purge
+  end
+end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
